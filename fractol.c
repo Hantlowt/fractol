@@ -1,19 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   fractol.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alhote <alhote@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/03/07 17:15:16 by alhote            #+#    #+#             */
-/*   Updated: 2016/03/08 19:33:18 by alhote           ###   ########.fr       */
+/*   Created: 2016/03/08 19:06:54 by alhote            #+#    #+#             */
+/*   Updated: 2016/03/08 19:26:20 by alhote           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int		main(int argc, char **argv)
+#include "fractol.h"
+
+t_fractol				*init_f(void *mlx, void *win, int sx, int sy)
 {
-
-
-
-	return (0);
+	t_fractol	new;
+	if (!(new = (t_fractol*)malloc(sizeof(t_fractol))))
+		return (0);
+	new->mlx = mlx;
+	new->win = win;
+	new->sx = sx;
+	new->sy = sy;
+	return (new);
 }
