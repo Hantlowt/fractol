@@ -6,7 +6,7 @@
 /*   By: alhote <alhote@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/09 18:53:23 by alhote            #+#    #+#             */
-/*   Updated: 2016/03/09 19:09:41 by alhote           ###   ########.fr       */
+/*   Updated: 2016/03/10 17:09:22 by alhote           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,11 @@ void	image_put_pixel(void *img, int x, int y, int color)
 	int		sizeline;
 	int		endian;
 
-	x = 0;
-	y = 0;
-	color = 0;
 	data = mlx_get_data_addr(img, &bpp, &sizeline, &endian);
-	printf("%d, %d, %d\n", bpp, sizeline, endian);
+	//printf("%x\n", data);
+	data[y * sizeline + x * 4] = color;
+	data[y * sizeline + x * 4 + 1] = color >> 8;
+	data[y * sizeline + x * 4 + 2] = color >> 16;
+	//printf("%d\n", data[y * sizeline + x * 4]);
+	//printf("%d %d %d\n", data[y * sizeline + x * (bpp / 8)], data[y * sizeline + x * (bpp / 8) + 1], data[y * sizeline + x * (bpp / 8) + 2]);
 }

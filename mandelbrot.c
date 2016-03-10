@@ -6,7 +6,7 @@
 /*   By: alhote <alhote@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/08 19:27:20 by alhote            #+#    #+#             */
-/*   Updated: 2016/03/09 19:30:43 by alhote           ###   ########.fr       */
+/*   Updated: 2016/03/10 16:30:08 by alhote           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,46 +15,44 @@
 
 int					draw_mandelbrot(void *arg)
 {
-	t_area	*a;
+	t_fractol	*f;
 	int		pos[2];
 	double	zoom[2];
 	double	c[2];
 	double	z[2];
 	double	tmp[2];
 
-	a = (t_area*)arg;
-	zoom[0] = (a->f->sx / a->f->sd) / ((a->f->xf2 - a->f->xf1) / a->f->sd);
-	zoom[1] = (a->f->sy / a->f->sd) / ((a->f->yf2 - a->f->yf1) / a->f->sd);
+	f = (t_fractol*)arg;
+	zoom[0] = (f->sx / f->sd) / ((f->xf2 - f->xf1) / f->sd);
+	zoom[1] = (f->sy / f->sd) / ((f->yf2 - f->yf1) / f->sd);
 	pos[0] = 0;
 	pos[1] = 0;
 	tmp[0] = 0;
 	tmp[1] = 0;
-	printf("%d\n", a->f->sx);
-	while (pos[0] < (a->f->sx / a->f->sd))
+	image_put_pixel(f->img, 420 / 2, 420 / 2, 0xFFFFFF);
+	while (pos[0] < (f->sx / f->sd))
 	{
-		while (pos[1] < (a->f->sy / a->f->sd))
+		while (pos[1] < (f->sy / f->sd))
 		{
-			printf("prout\n");
-			c[0] = pos[0] / zoom[0] + a->f->xf1;
-			c[1] = pos[1] / zoom[1] + a->f->yf1;
+			c[0] = pos[0] / zoom[0] + f->xf1;
+			c[1] = pos[1] / zoom[1] + f->yf1;
 			z[0] = 0;
 			z[1] = 0;
 			tmp[1] = 0;
-			while (z[0] * z[0] + z[1] * z[1] < 4 && tmp[1] < a->f->i_max)
+			while (z[0] * z[0] + z[1] * z[1] < 4 && tmp[1] < f->i_max)
 			{
-				printf("prout2\n");
 				tmp[0] = z[0];
 				z[0] = z[0] * z[0] - z[1] * z[1] + c[0];
 				z[1] = 2 * z[1] * tmp[0] + c[1];
 				++tmp[1];
 			}
-			if (tmp[1] == a->f->i_max)
-				image_put_pixel(a->img, pos[0], pos[1], 0xFFFFFF);
+			if (tmp[1] == f->i_max)
+				image_put_pixel(f->img, pos[0], pos[1], 0xFFFFFF);
 			++pos[1];
 		}
 		pos[1] = 0;
 		++pos[0];
 	}
-	//mlx_put_image_to_window(a->f->mlx, a->f->win, a->img, 0, 0);
+	mlx_put_image_to_window(f->mlx, f->win, f->img, 0, 0);
 	return (0);
 }
