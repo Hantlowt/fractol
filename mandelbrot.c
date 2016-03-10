@@ -6,7 +6,7 @@
 /*   By: alhote <alhote@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/08 19:27:20 by alhote            #+#    #+#             */
-/*   Updated: 2016/03/10 16:30:08 by alhote           ###   ########.fr       */
+/*   Updated: 2016/03/10 19:11:33 by alhote           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,16 +23,15 @@ int					draw_mandelbrot(void *arg)
 	double	tmp[2];
 
 	f = (t_fractol*)arg;
-	zoom[0] = (f->sx / f->sd) / ((f->xf2 - f->xf1) / f->sd);
-	zoom[1] = (f->sy / f->sd) / ((f->yf2 - f->yf1) / f->sd);
+	zoom[0] = f->sx / ((f->xf2 - f->xf1));
+	zoom[1] = f->sy / ((f->yf2 - f->yf1));
 	pos[0] = 0;
 	pos[1] = 0;
 	tmp[0] = 0;
 	tmp[1] = 0;
-	image_put_pixel(f->img, 420 / 2, 420 / 2, 0xFFFFFF);
-	while (pos[0] < (f->sx / f->sd))
+	while (pos[0] < f->sx)
 	{
-		while (pos[1] < (f->sy / f->sd))
+		while (pos[1] < f->sy)
 		{
 			c[0] = pos[0] / zoom[0] + f->xf1;
 			c[1] = pos[1] / zoom[1] + f->yf1;
@@ -47,7 +46,9 @@ int					draw_mandelbrot(void *arg)
 				++tmp[1];
 			}
 			if (tmp[1] == f->i_max)
-				image_put_pixel(f->img, pos[0], pos[1], 0xFFFFFF);
+				image_put_pixel(f->img, pos[0], pos[1], 0);
+			else
+				image_put_pixel(f->img, f->x + pos[0], f->y + pos[1], (tmp[1] * 255) / f->i_max);
 			++pos[1];
 		}
 		pos[1] = 0;
