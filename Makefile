@@ -6,7 +6,7 @@
 #    By: alhote <alhote@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/03/07 17:05:31 by alhote            #+#    #+#              #
-#    Updated: 2016/03/07 17:09:39 by alhote           ###   ########.fr        #
+#    Updated: 2016/03/09 19:09:04 by alhote           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,16 +15,16 @@ CC = clang
 RM = rm -f
 CFLAGS = -Wall -Werror -Wextra
 INCLUDES = ./
+SRC = main.c fractol.c mandelbrot.c draw.c
 OBJ = $(SRC:.c=.o)
-SRC =
-HEADER =
 
 all : $(NAME)
 
-$(NAME) : $(OBJ) $(HEADER)
+$(NAME) : $(OBJ)
+	$(CC) $(CFLAGS) $(OBJ) -lm -lmlx -framework OpenGL -framework AppKit -o $(NAME)
 
 %.o: %.c
-	$(CC) -o $@ -c $< $(CFLAGS) -I $(INCLUDES)
+	$(CC) $(CFLAGS) $(INC_DIR) -c $<
 
 clean:
 	$(RM) $(OBJ)
