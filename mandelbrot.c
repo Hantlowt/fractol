@@ -6,7 +6,7 @@
 /*   By: alhote <alhote@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/08 19:27:20 by alhote            #+#    #+#             */
-/*   Updated: 2016/03/10 19:11:33 by alhote           ###   ########.fr       */
+/*   Updated: 2016/03/14 17:34:38 by alhote           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,18 +23,18 @@ int					draw_mandelbrot(void *arg)
 	double	tmp[2];
 
 	f = (t_fractol*)arg;
-	zoom[0] = f->sx / ((f->xf2 - f->xf1));
-	zoom[1] = f->sy / ((f->yf2 - f->yf1));
+	zoom[0] = f->scx / (f->six);
+	zoom[1] = f->scy / (f->siy);
 	pos[0] = 0;
 	pos[1] = 0;
 	tmp[0] = 0;
 	tmp[1] = 0;
-	while (pos[0] < f->sx)
+	while (pos[0] < f->scx)
 	{
-		while (pos[1] < f->sy)
+		while (pos[1] < f->scy)
 		{
-			c[0] = pos[0] / zoom[0] + f->xf1;
-			c[1] = pos[1] / zoom[1] + f->yf1;
+			c[0] = pos[0] / zoom[0] + f->x;
+			c[1] = pos[1] / zoom[1] + f->y;
 			z[0] = 0;
 			z[1] = 0;
 			tmp[1] = 0;

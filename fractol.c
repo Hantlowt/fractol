@@ -6,7 +6,7 @@
 /*   By: alhote <alhote@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/08 19:06:54 by alhote            #+#    #+#             */
-/*   Updated: 2016/03/10 20:18:56 by alhote           ###   ########.fr       */
+/*   Updated: 2016/03/14 18:33:47 by alhote           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,19 @@
 
 int						move_f(t_fractol *f, double x, double y, double z)
 {
+	//x = (double)f->i_max;
+	//y = (double)f->i_max;
+	//z /= (double)f->i_max;
 	while (f)
 	{
-		z = (double)z;
-		f->xf1 += (x / f->i_max) + (z / f->i_max);
-		f->xf2 += (x / f->i_max) - (z / f->i_max);
-		f->yf1 += (y / f->i_max) + (z / f->i_max);
-		f->yf2 += (y / f->i_max) - (z / f->i_max);
-		f->i_max += (z / f->i_max) * 5;
+		f->six /= z;
+		f->siy /= z;
+		f->x += (x / (f->six));
+		//f->xf2 += (x / (scalex / 2)) + z / f->xf2;
+		f->y += (y / (f->siy));
+		//f->yf2 += (y / (scaley / 2)) + z / f->yf2;
+		//scale = ((f->xf2 - f->xf1) * (f->yf2 - f->yf1));
+		//f->i_max += z * 2;
 		f = f->next;
 	}
 	return (0);
@@ -34,14 +39,12 @@ t_fractol				*init_f(void *mlx, int sx, int sy)
 	if (!(new = (t_fractol*)malloc(sizeof(t_fractol))))
 		return (0);
 	new->mlx = mlx;
-	new->sx = sx;
-	new->sy = sy;
-	new->x = 0.0;
-	new->y = 0.0;
-	new->xf1 = -2.1;
-	new->xf2 = 0.6;
-	new->yf1 = -1.2;
-	new->yf2 = 1.2;
+	new->scx = sx;
+	new->scy = sy;
+	new->x = -2.1;
+	new->six = 0.6 - (-2.1);
+	new->y = -1.2;
+	new->siy = 1.2 - (-1.2);
 	new->i_max = 50;
 	new->img = mlx_new_image(mlx, sx, sy);
 	new->next = NULL;

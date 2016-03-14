@@ -6,7 +6,7 @@
 /*   By: alhote <alhote@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/08 16:07:47 by alhote            #+#    #+#             */
-/*   Updated: 2016/03/10 19:15:27 by alhote           ###   ########.fr       */
+/*   Updated: 2016/03/14 15:21:21 by alhote           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,18 @@
 # define FRACTOL_H
 # include <stdlib.h>
 # include <mlx.h>
+# include <math.h>
 
 typedef struct			s_fractol
 {
 	void				*mlx;
 	void				*win;
-	int					sx;
-	int					sy;
-	int					x;
-	int					y;
-	double				xf1;
-	double				xf2;
-	double				yf1;
-	double				yf2;
+	int					scx;
+	int					scy;
+	double				x;
+	double				y;
+	double				six;
+	double				siy;
 	int					i_max;
 	void				*img;
 	struct s_fractol	*next;

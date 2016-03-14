@@ -6,7 +6,7 @@
 /*   By: alhote <alhote@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 17:15:16 by alhote            #+#    #+#             */
-/*   Updated: 2016/03/10 20:12:31 by alhote           ###   ########.fr       */
+/*   Updated: 2016/03/14 18:00:17 by alhote           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,17 +21,17 @@ int				key(int keycode, void *param)
 
 	f = (t_fractol*)param;
 	if (keycode == 124)
-		move_f(f, 1.0, 0.0, 0.0);
+		move_f(f, 1.0, 0.0, 1.0);
 	if (keycode == 123)
-		move_f(f, -1.0, 0.0, 0.0);
+		move_f(f, -1.0, 0.0, 1.0);
 	if (keycode == 126)
-		move_f(f, 0.0, -1.0, 0.0);
+		move_f(f, 0.0, -1.0, 1.0);
 	if (keycode == 125)
-		move_f(f, 0.0, 1.0, 0.0);
+		move_f(f, 0.0, 1.0, 1.0);
 	if (keycode == 16)
-		move_f(f, 0.0, 0.0, -1.0);
+		move_f(f, 0.0, 0.0, 0.9);
 	if (keycode == 4)
-		move_f(f, 0.0, 0.0, 1.0);
+		move_f(f, 0.0, 0.0, 1.1);
 	if (keycode == 53)
 		exit(0);
 	mlx_clear_window(f->mlx, f->win);
