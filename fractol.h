@@ -6,7 +6,7 @@
 /*   By: alhote <alhote@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/08 16:07:47 by alhote            #+#    #+#             */
-/*   Updated: 2016/03/17 11:49:31 by alhote           ###   ########.fr       */
+/*   Updated: 2016/03/17 16:12:59 by alhote           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ typedef struct			s_fractol
 	void				*win;
 	int					scx;
 	int					scy;
-	int					zoom;
+	double				zoom_x;
+	double				zoom_y;
 	int					x;
 	int					y;
 	double				x1;
