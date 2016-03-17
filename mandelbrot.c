@@ -6,53 +6,56 @@
 /*   By: alhote <alhote@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/08 19:27:20 by alhote            #+#    #+#             */
-/*   Updated: 2016/03/14 17:34:38 by alhote           ###   ########.fr       */
+/*   Updated: 2016/03/17 12:31:19 by alhote           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 #include <stdio.h>
 
+static void			draw_pixel_mandel(t_fractol *f)
+{
+	int	i;
+	int	tmp;
+
+	i = 0;
+	f->c_r = f->x / f->zoom + f->x1;
+	f->c_i = f->y / f->zoom + f->y1;
+	f->z_r = 0;
+	f->z_i = 0;
+	while (f->z_r * f->z_r + f->z_i * f->z_i < 4 && i < f->i_max)
+	{
+		tmp = f->z_r;
+		f->z_r = f->z_r * f->z_r - f->z_i * f->z_i + f->c_r;
+		f->z_i = 2 * f->z_i * tmp + f->c_i;
+		i = i + 1;
+	}
+	if (i == f->i_max)
+		img_pxl(f->img, f->x, f->y, 0);
+	else
+		img_pxl(f->img, f->x, f->y, i * 255 / f->i_max);
+}
+
 int					draw_mandelbrot(void *arg)
 {
 	t_fractol	*f;
-	int		pos[2];
-	double	zoom[2];
-	double	c[2];
-	double	z[2];
-	double	tmp[2];
 
 	f = (t_fractol*)arg;
-	zoom[0] = f->scx / (f->six);
-	zoom[1] = f->scy / (f->siy);
-	pos[0] = 0;
-	pos[1] = 0;
-	tmp[0] = 0;
-	tmp[1] = 0;
-	while (pos[0] < f->scx)
+	f->x = 0;
+	f->y = 0;
+	f->six = (f->x2 - f->x1) * f->zoom;
+	f->siy = (f->y2 - f->y1) * f->zoom;
+	//free(f->img);
+	f->img = mlx_new_image(f->mlx, f->six, f->siy);
+	while (f->x < f->six)
 	{
-		while (pos[1] < f->scy)
+		while (f->y < f->siy)
 		{
-			c[0] = pos[0] / zoom[0] + f->x;
-			c[1] = pos[1] / zoom[1] + f->y;
-			z[0] = 0;
-			z[1] = 0;
-			tmp[1] = 0;
-			while (z[0] * z[0] + z[1] * z[1] < 4 && tmp[1] < f->i_max)
-			{
-				tmp[0] = z[0];
-				z[0] = z[0] * z[0] - z[1] * z[1] + c[0];
-				z[1] = 2 * z[1] * tmp[0] + c[1];
-				++tmp[1];
-			}
-			if (tmp[1] == f->i_max)
-				image_put_pixel(f->img, pos[0], pos[1], 0);
-			else
-				image_put_pixel(f->img, f->x + pos[0], f->y + pos[1], (tmp[1] * 255) / f->i_max);
-			++pos[1];
+			draw_pixel_mandel(f);
+			f->y++;
 		}
-		pos[1] = 0;
-		++pos[0];
+		f->y = 0;
+		f->x++;
 	}
 	mlx_put_image_to_window(f->mlx, f->win, f->img, 0, 0);
 	return (0);

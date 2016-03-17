@@ -6,14 +6,19 @@
 /*   By: alhote <alhote@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/09 18:53:23 by alhote            #+#    #+#             */
-/*   Updated: 2016/03/10 17:17:08 by alhote           ###   ########.fr       */
+/*   Updated: 2016/03/17 11:14:34 by alhote           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 #include <stdio.h>
 
-void	image_put_pixel(void *img, int x, int y, int color)
+int		rgbtoint(int r, int v, int b)
+{
+	return (b + (v * 256) + (r * 65536));
+}
+
+void	img_pxl(void *img, int x, int y, int color)
 {
 	char	*data;
 	int		bpp;

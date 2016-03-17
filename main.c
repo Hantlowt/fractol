@@ -6,7 +6,7 @@
 /*   By: alhote <alhote@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 17:15:16 by alhote            #+#    #+#             */
-/*   Updated: 2016/03/14 18:00:17 by alhote           ###   ########.fr       */
+/*   Updated: 2016/03/17 12:06:32 by alhote           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,17 +21,17 @@ int				key(int keycode, void *param)
 
 	f = (t_fractol*)param;
 	if (keycode == 124)
-		move_f(f, 1.0, 0.0, 1.0);
+		move_f(f, 1.0, 0.0);
 	if (keycode == 123)
-		move_f(f, -1.0, 0.0, 1.0);
+		move_f(f, -1.0, 0.0);
 	if (keycode == 126)
-		move_f(f, 0.0, -1.0, 1.0);
+		move_f(f, 0.0, -1.0);
 	if (keycode == 125)
-		move_f(f, 0.0, 1.0, 1.0);
+		move_f(f, 0.0, 1.0);
 	if (keycode == 16)
-		move_f(f, 0.0, 0.0, 0.9);
+		move_f(f, 0.0, 0.0);
 	if (keycode == 4)
-		move_f(f, 0.0, 0.0, 1.1);
+		move_f(f, 0.0, 0.0);
 	if (keycode == 53)
 		exit(0);
 	mlx_clear_window(f->mlx, f->win);
@@ -47,6 +47,7 @@ int				main(void)
 	f = init_f(mlx_init(), 1920, 1080);
 	f->win = mlx_new_window(f->mlx, 1920, 1080, "Fractol");
 	mlx_hook(f->win, 2, (1L << 0), key, f);
+	draw_mandelbrot(f);
 	mlx_loop(f->mlx);
 	return (0);
 }
