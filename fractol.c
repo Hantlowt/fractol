@@ -6,7 +6,7 @@
 /*   By: alhote <alhote@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/08 19:06:54 by alhote            #+#    #+#             */
-/*   Updated: 2016/03/21 16:42:08 by alhote           ###   ########.fr       */
+/*   Updated: 2016/03/21 21:14:59 by alhote           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,55 +15,56 @@
 
 int						move_f(t_fractol *f, double x, double y)
 {
-	while (f)
+	double	d[2];
+
+	d[0] = (f->x2 - f->x1);
+	d[1] = (f->y2 - f->y1);
+	if (x > 0)
 	{
-		if (x > 0)
-		{
-			f->x1 += (f->x2 - f->x1) * x;
-			f->x2 += (f->x2 - f->x1) * x;
-		}
-		else
-		{
-			f->x1 -= (f->x2 - f->x1) * -x;
-			f->x2 -= (f->x2 - f->x1) * -x;
-		}
-		if (y > 0)
-		{
-			f->y1 += (f->y2 - f->y1) * y;
-			f->y2 += (f->y2 - f->y1) * y;
-		}
-		else
-		{
-			f->y1 -= (f->y2 - f->y1) * -y;
-			f->y2 -= (f->y2 - f->y1) * -y;
-		}
-		f = f->next;
+		f->x1 += d[0] * x;
+		f->x2 = f->x1 + d[0];
+	}
+	else
+	{
+		f->x1 -= d[0] * -x;
+		f->x2 = f->x1 + d[0];
+	}
+	if (y > 0)
+	{
+		f->y1 += d[1] * y;
+		f->y2 = f->y1 + d[1];
+	}
+	else
+	{
+		f->y1 -= d[1] * -y;
+		f->y2 = f->y1 + d[1];
 	}
 	return (0);
 }
 
 int						zoom_f(t_fractol *f, double s)
 {
-	while (f)
+	double	d[2];
+
+	d[0] = (f->x2 - f->x1);
+	d[1] = (f->y2 - f->y1);
+	if (s > 0)
 	{
-		if (s > 0)
-		{
-			f->x1 += (f->x2 - f->x1) * s;
-			f->y1 += (f->y2 - f->y1) * s;
-			f->x2 -= (f->x2 - f->x1) * s;
-			f->y2 -= (f->y2 - f->y1) * s;
-			f->i_max += 30;
-		}
-		else
-		{
-			f->x1 -= (f->x2 - f->x1) * -s;
-			f->y1 -= (f->y2 - f->y1) * -s;
-			f->x2 += (f->x2 - f->x1) * -s;
-			f->y2 += (f->y2 - f->y1) * -s;
-			f->i_max -= 30;
-		}
-		f = f->next;
+		f->x1 += (f->x2 - f->x1) * s;
+		f->y1 += (f->y2 - f->y1) * s;
+		f->x2 -= (f->x2 - f->x1) * s;
+		f->y2 -= (f->y2 - f->y1) * s;
+		f->i_max += 20;
 	}
+	else
+	{
+		f->x1 -= (f->x2 - f->x1) * -s;
+		f->y1 -= (f->y2 - f->y1) * -s;
+		f->x2 += (f->x2 - f->x1) * -s;
+		f->y2 += (f->y2 - f->y1) * -s;
+		f->i_max -= 20;
+	}
+	f->i_max = (f->i_max < 50 ? 50 : f->i_max);
 	return (0);
 }
 
@@ -86,6 +87,7 @@ t_fractol				*init_f(void *mlx, int sx, int sy)
 	new->y2 = 1.2;
 	new->img = mlx_new_image(mlx, sx, sy);
 	new->i_max = 50;
-	new->next = NULL;
+	new->ecolor = 255;
+	new->icolor = 0;
 	return (new);
 }

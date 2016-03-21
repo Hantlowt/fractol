@@ -6,7 +6,7 @@
 /*   By: alhote <alhote@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/08 19:27:20 by alhote            #+#    #+#             */
-/*   Updated: 2016/03/21 16:40:45 by alhote           ###   ########.fr       */
+/*   Updated: 2016/03/21 21:15:20 by alhote           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,18 +31,16 @@ static void			draw_pixel_mandel(t_fractol *f)
 		++i;
 	}
 	if (i == f->i_max)
-		img_pxl(f->img, f->x, f->y, 0);
+		img_pxl(f->img, f->x, f->y, f->icolor);
 	else
-		img_pxl(f->img, f->x, f->y, rgbtoint(0, 0, i * 255 / f->i_max));
+		img_pxl(f->img, f->x, f->y, f->ecolor + (i * 255 / f->i_max));
 }
 
-int					draw_mandelbrot(void *arg)
+void				draw_mandelbrot(t_fractol *f)
 {
-	t_fractol	*f;
 	int			x;
 	int			y;
 
-	f = (t_fractol*)arg;
 	x = f->x;
 	y = f->y;
 	f->zoom_x = f->sx / (f->x2 - f->x1);
@@ -60,5 +58,4 @@ int					draw_mandelbrot(void *arg)
 	f->x = x;
 	f->y = y;
 	mlx_put_image_to_window(f->mlx, f->win, f->img, 0, 0);
-	return (0);
 }

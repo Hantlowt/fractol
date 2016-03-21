@@ -6,7 +6,7 @@
 /*   By: alhote <alhote@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 17:15:16 by alhote            #+#    #+#             */
-/*   Updated: 2016/03/21 16:26:15 by alhote           ###   ########.fr       */
+/*   Updated: 2016/03/21 21:17:52 by alhote           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "fractol.h"
-#include <pthread.h>
 
 int				key(int keycode, void *param)
 {
@@ -30,9 +29,13 @@ int				key(int keycode, void *param)
 	if (keycode == 125)
 		move_f(f, 0.0, 0.2);
 	if (keycode == 16)
-		zoom_f(f, 0.5);
+		zoom_f(f, 0.3);
 	if (keycode == 4)
-		zoom_f(f, -0.5);
+		zoom_f(f, -0.3);
+	if (keycode == 46)
+		f->ecolor += 1;
+	if (keycode == 45)
+		f->icolor += 1;
 	if (keycode == 53)
 		exit(0);
 	mlx_clear_window(f->mlx, f->win);
