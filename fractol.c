@@ -6,7 +6,7 @@
 /*   By: alhote <alhote@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/08 19:06:54 by alhote            #+#    #+#             */
-/*   Updated: 2016/03/17 17:23:13 by alhote           ###   ########.fr       */
+/*   Updated: 2016/03/21 16:42:08 by alhote           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,21 +15,53 @@
 
 int						move_f(t_fractol *f, double x, double y)
 {
-	//x = (double)f->i_max;
-	//y = (double)f->i_max;
-	//z /= (double)f->i_max;
 	while (f)
 	{
-		//f->six /= z;
-		//f->siy /= z;
-		f->x1 += (x);
-		f->y1 += (y);
-		f->x2 += (x);
-		f->y2 += (y);
-		//f->xf2 += (x / (scalex / 2)) + z / f->xf2;
-		//f->yf2 += (y / (scaley / 2)) + z / f->yf2;
-		//scale = ((f->xf2 - f->xf1) * (f->yf2 - f->yf1));
-		//f->i_max += z * 2;
+		if (x > 0)
+		{
+			f->x1 += (f->x2 - f->x1) * x;
+			f->x2 += (f->x2 - f->x1) * x;
+		}
+		else
+		{
+			f->x1 -= (f->x2 - f->x1) * -x;
+			f->x2 -= (f->x2 - f->x1) * -x;
+		}
+		if (y > 0)
+		{
+			f->y1 += (f->y2 - f->y1) * y;
+			f->y2 += (f->y2 - f->y1) * y;
+		}
+		else
+		{
+			f->y1 -= (f->y2 - f->y1) * -y;
+			f->y2 -= (f->y2 - f->y1) * -y;
+		}
+		f = f->next;
+	}
+	return (0);
+}
+
+int						zoom_f(t_fractol *f, double s)
+{
+	while (f)
+	{
+		if (s > 0)
+		{
+			f->x1 += (f->x2 - f->x1) * s;
+			f->y1 += (f->y2 - f->y1) * s;
+			f->x2 -= (f->x2 - f->x1) * s;
+			f->y2 -= (f->y2 - f->y1) * s;
+			f->i_max += 30;
+		}
+		else
+		{
+			f->x1 -= (f->x2 - f->x1) * -s;
+			f->y1 -= (f->y2 - f->y1) * -s;
+			f->x2 += (f->x2 - f->x1) * -s;
+			f->y2 += (f->y2 - f->y1) * -s;
+			f->i_max -= 30;
+		}
 		f = f->next;
 	}
 	return (0);
@@ -42,10 +74,12 @@ t_fractol				*init_f(void *mlx, int sx, int sy)
 	if (!(new = (t_fractol*)malloc(sizeof(t_fractol))))
 		return (0);
 	new->mlx = mlx;
-	new->scx = sx;
-	new->scy = sy;
-	new->six = sx;
-	new->siy = sy;
+	new->x = 0;
+	new->y = 0;
+	new->msx = sx;
+	new->msy = sy;
+	new->sx = sx;
+	new->sy = sy;
 	new->x1 = -2.1;
 	new->x2 = 0.6;
 	new->y1 = -1.2;

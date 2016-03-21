@@ -6,7 +6,7 @@
 /*   By: alhote <alhote@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/08 19:27:20 by alhote            #+#    #+#             */
-/*   Updated: 2016/03/17 17:20:58 by alhote           ###   ########.fr       */
+/*   Updated: 2016/03/21 16:40:45 by alhote           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 
 static void			draw_pixel_mandel(t_fractol *f)
 {
-	int	i;
-	int	tmp;
+	int		i;
+	double	tmp;
 
 	i = 0;
 	f->c_r = f->x / f->zoom_x + f->x1;
@@ -39,15 +39,17 @@ static void			draw_pixel_mandel(t_fractol *f)
 int					draw_mandelbrot(void *arg)
 {
 	t_fractol	*f;
+	int			x;
+	int			y;
 
 	f = (t_fractol*)arg;
-	f->x = 0;
-	f->y = 0;
-	f->zoom_x = f->six / (f->x2 - f->x1);
-	f->zoom_y = f->siy / (f->y2 - f->y1);
-	while (f->x < f->six)
+	x = f->x;
+	y = f->y;
+	f->zoom_x = f->sx / (f->x2 - f->x1);
+	f->zoom_y = f->sy / (f->y2 - f->y1);
+	while (f->x < f->msx)
 	{
-		while (f->y < f->siy)
+		while (f->y < f->msy)
 		{
 			draw_pixel_mandel(f);
 			f->y++;
@@ -55,6 +57,8 @@ int					draw_mandelbrot(void *arg)
 		f->y = 0;
 		f->x++;
 	}
+	f->x = x;
+	f->y = y;
 	mlx_put_image_to_window(f->mlx, f->win, f->img, 0, 0);
 	return (0);
 }
