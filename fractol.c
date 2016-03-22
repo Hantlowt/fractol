@@ -6,7 +6,7 @@
 /*   By: alhote <alhote@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/08 19:06:54 by alhote            #+#    #+#             */
-/*   Updated: 2016/03/21 21:14:59 by alhote           ###   ########.fr       */
+/*   Updated: 2016/03/22 14:28:42 by alhote           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int						zoom_f(t_fractol *f, double s)
 		f->y1 += (f->y2 - f->y1) * s;
 		f->x2 -= (f->x2 - f->x1) * s;
 		f->y2 -= (f->y2 - f->y1) * s;
-		f->i_max += 20;
+		f->i_max += 10;
 	}
 	else
 	{
@@ -62,7 +62,7 @@ int						zoom_f(t_fractol *f, double s)
 		f->y1 -= (f->y2 - f->y1) * -s;
 		f->x2 += (f->x2 - f->x1) * -s;
 		f->y2 += (f->y2 - f->y1) * -s;
-		f->i_max -= 20;
+		f->i_max -= 10;
 	}
 	f->i_max = (f->i_max < 50 ? 50 : f->i_max);
 	return (0);
@@ -86,8 +86,8 @@ t_fractol				*init_f(void *mlx, int sx, int sy)
 	new->y1 = -1.2;
 	new->y2 = 1.2;
 	new->img = mlx_new_image(mlx, sx, sy);
-	new->i_max = 50;
-	new->ecolor = 255;
+	new->i_max = 90;
+	new->ecolor = 0;
 	new->icolor = 0;
 	return (new);
 }

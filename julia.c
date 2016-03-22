@@ -1,27 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mandelbrot.c                                       :+:      :+:    :+:   */
+/*   julia.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alhote <alhote@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/03/08 19:27:20 by alhote            #+#    #+#             */
-/*   Updated: 2016/03/22 16:04:04 by alhote           ###   ########.fr       */
+/*   Created: 2016/03/22 16:04:16 by alhote            #+#    #+#             */
+/*   Updated: 2016/03/22 17:39:03 by alhote           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-static void			draw_pixel_mandel(t_fractol *f)
+static void			draw_pixel_julia(t_fractol *f)
 {
 	int		i;
 	double	tmp;
 
 	i = 0;
-	f->c_r = f->x / f->zoom_x + f->x1;
-	f->c_i = f->y / f->zoom_y + f->y1;
-	f->z_r = 0;
-	f->z_i = 0;
+	f->z_r = f->x / f->zoom_x + f->x1;
+	f->z_i = f->y / f->zoom_y + f->y1;
 	while (f->z_r * f->z_r + f->z_i * f->z_i < 4 && i < f->i_max)
 	{
 		tmp = f->z_r;
@@ -30,12 +28,12 @@ static void			draw_pixel_mandel(t_fractol *f)
 		++i;
 	}
 	if (i == f->i_max)
-		img_pxl(f->img, f->x, f->y, (i * 255 / f->i_max) << (f->ecolor));
+		img_pxl(f->img, f->x, f->y, 0);
 	else
 		img_pxl(f->img, f->x, f->y, (i * 255 / f->i_max) << f->ecolor);
 }
 
-void				draw_mandelbrot(t_fractol *f)
+void				draw_julia(t_fractol *f)
 {
 	int			x;
 	int			y;
@@ -48,7 +46,7 @@ void				draw_mandelbrot(t_fractol *f)
 	{
 		while (f->y < f->msy)
 		{
-			draw_pixel_mandel(f);
+			draw_pixel_julia(f);
 			f->y++;
 		}
 		f->y = 0;

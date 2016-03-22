@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mandelbrot.c                                       :+:      :+:    :+:   */
+/*   burningship.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alhote <alhote@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/03/08 19:27:20 by alhote            #+#    #+#             */
-/*   Updated: 2016/03/22 16:04:04 by alhote           ###   ########.fr       */
+/*   Created: 2016/03/22 19:51:47 by alhote            #+#    #+#             */
+/*   Updated: 2016/03/22 19:59:52 by alhote           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-static void			draw_pixel_mandel(t_fractol *f)
+static void			draw_pixel_burningship(t_fractol *f)
 {
 	int		i;
 	double	tmp;
@@ -26,16 +26,16 @@ static void			draw_pixel_mandel(t_fractol *f)
 	{
 		tmp = f->z_r;
 		f->z_r = f->z_r * f->z_r - f->z_i * f->z_i + f->c_r;
-		f->z_i = 2 * f->z_i * tmp + f->c_i;
+		f->z_i = 2 * fabs(f->z_i * tmp) + f->c_i;
 		++i;
 	}
 	if (i == f->i_max)
-		img_pxl(f->img, f->x, f->y, (i * 255 / f->i_max) << (f->ecolor));
+		img_pxl(f->img, f->x, f->y, 0);
 	else
 		img_pxl(f->img, f->x, f->y, (i * 255 / f->i_max) << f->ecolor);
 }
 
-void				draw_mandelbrot(t_fractol *f)
+void				draw_burningship(t_fractol *f)
 {
 	int			x;
 	int			y;
@@ -48,7 +48,7 @@ void				draw_mandelbrot(t_fractol *f)
 	{
 		while (f->y < f->msy)
 		{
-			draw_pixel_mandel(f);
+			draw_pixel_burningship(f);
 			f->y++;
 		}
 		f->y = 0;

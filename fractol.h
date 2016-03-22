@@ -6,7 +6,7 @@
 /*   By: alhote <alhote@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/08 16:07:47 by alhote            #+#    #+#             */
-/*   Updated: 2016/03/21 21:07:17 by alhote           ###   ########.fr       */
+/*   Updated: 2016/03/22 19:58:10 by alhote           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ typedef struct			s_fractol
 t_fractol				*init_f(void *mlx, int sx, int sy);
 int						move_f(t_fractol *f, double x, double y);
 void					draw_mandelbrot(t_fractol *f);
+void					draw_julia(t_fractol *f);
+void					draw_burningship(t_fractol *f);
 int						zoom_f(t_fractol *f, double s);
 void					img_pxl(void *img, int x, int y, int color);
 int						rgbtoint(int r, int v, int b);
