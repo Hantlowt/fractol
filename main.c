@@ -6,7 +6,7 @@
 /*   By: alhote <alhote@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 17:15:16 by alhote            #+#    #+#             */
-/*   Updated: 2016/03/23 16:10:25 by alhote           ###   ########.fr       */
+/*   Updated: 2016/03/23 18:55:08 by alhote           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,9 @@
 
 void			error(void)
 {
-	write(1, "usage: ./fractol 1|2|3 (Mandelbrot, Julia or Burningship)\n", 59);
+	write(1, "usage: ./fractol 1|2|3 ", 23);
+	write(1, "(Mandelbrot, Julia, Burningship or bonus)\n", 42);
+	exit(0);
 }
 
 int				main(int argc, char *argv[])
@@ -33,13 +35,13 @@ int				main(int argc, char *argv[])
 			set_julia(f);
 		if (argv[1][0] == '3' && argv[1][1] == 0)
 			set_burningship(f);
+		if (argv[1][0] == '4' && argv[1][1] == 0)
+			set_bonus(f);
 		if (f->draw)
-		{
 			f->draw(f);
-			mlx_loop(f->mlx);
-		}
 		else
 			error();
+		mlx_loop(f->mlx);
 	}
 	else
 		error();
