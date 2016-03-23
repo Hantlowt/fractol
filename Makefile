@@ -6,7 +6,7 @@
 #    By: alhote <alhote@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/03/07 17:05:31 by alhote            #+#    #+#              #
-#    Updated: 2016/03/22 19:57:57 by alhote           ###   ########.fr        #
+#    Updated: 2016/03/23 14:42:43 by alhote           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ CC = clang
 RM = rm -f
 CFLAGS = -Wall -Werror -Wextra
 INCLUDES = ./
-SRC = main.c fractol.c mandelbrot.c draw.c julia.c burningship.c
+SRC = main.c fractol.c mandelbrot.c draw.c julia.c burningship.c control.c
 OBJ = $(SRC:.c=.o)
 
 all : $(NAME)

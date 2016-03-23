@@ -6,7 +6,7 @@
 /*   By: alhote <alhote@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/22 16:04:16 by alhote            #+#    #+#             */
-/*   Updated: 2016/03/22 17:39:03 by alhote           ###   ########.fr       */
+/*   Updated: 2016/03/23 17:40:45 by alhote           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ static void			draw_pixel_julia(t_fractol *f)
 {
 	int		i;
 	double	tmp;
+	int		dv;
 
 	i = 0;
 	f->z_r = f->x / f->zoom_x + f->x1;
@@ -27,10 +28,11 @@ static void			draw_pixel_julia(t_fractol *f)
 		f->z_i = 2 * f->z_i * tmp + f->c_i;
 		++i;
 	}
+	dv = 255 / f->i_max;
 	if (i == f->i_max)
-		img_pxl(f->img, f->x, f->y, 0);
+		img_pxl(f->img, f->x, f->y, ((i * dv) << (f->ecolor)) - 150);
 	else
-		img_pxl(f->img, f->x, f->y, (i * 255 / f->i_max) << f->ecolor);
+		img_pxl(f->img, f->x, f->y, (i * dv) << f->ecolor);
 }
 
 void				draw_julia(t_fractol *f)
@@ -55,4 +57,17 @@ void				draw_julia(t_fractol *f)
 	f->x = x;
 	f->y = y;
 	mlx_put_image_to_window(f->mlx, f->win, f->img, 0, 0);
+}
+
+void				set_julia(t_fractol *f)
+{
+	f->draw = draw_julia;
+	f->x1 = -1.5;
+	f->y1 = -1.5;
+	f->x2 = 1.5;
+	f->y2 = 1.5;
+	f->i_max = 150;
+	f->c_r = 0.285;
+	f->c_i = 0.01;
+	mlx_hook(f->win, 6, (1L << 6), mouse_motion, f);
 }

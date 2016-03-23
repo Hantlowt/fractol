@@ -6,7 +6,7 @@
 /*   By: alhote <alhote@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/22 19:51:47 by alhote            #+#    #+#             */
-/*   Updated: 2016/03/22 19:59:52 by alhote           ###   ########.fr       */
+/*   Updated: 2016/03/23 17:14:38 by alhote           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ static void			draw_pixel_burningship(t_fractol *f)
 {
 	int		i;
 	double	tmp;
+	int		dv;
 
 	i = 0;
 	f->c_r = f->x / f->zoom_x + f->x1;
@@ -29,10 +30,11 @@ static void			draw_pixel_burningship(t_fractol *f)
 		f->z_i = 2 * fabs(f->z_i * tmp) + f->c_i;
 		++i;
 	}
+	dv = 255 / f->i_max;
 	if (i == f->i_max)
-		img_pxl(f->img, f->x, f->y, 0);
+		img_pxl(f->img, f->x, f->y, ((i * dv) << (f->ecolor)) - 150);
 	else
-		img_pxl(f->img, f->x, f->y, (i * 255 / f->i_max) << f->ecolor);
+		img_pxl(f->img, f->x, f->y, (i * dv) << f->ecolor);
 }
 
 void				draw_burningship(t_fractol *f)
@@ -57,4 +59,9 @@ void				draw_burningship(t_fractol *f)
 	f->x = x;
 	f->y = y;
 	mlx_put_image_to_window(f->mlx, f->win, f->img, 0, 0);
+}
+
+void				set_burningship(t_fractol *f)
+{
+	f->draw = draw_burningship;
 }

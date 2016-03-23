@@ -6,12 +6,11 @@
 /*   By: alhote <alhote@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/08 19:06:54 by alhote            #+#    #+#             */
-/*   Updated: 2016/03/22 14:28:42 by alhote           ###   ########.fr       */
+/*   Updated: 2016/03/23 18:08:30 by alhote           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
-#include <stdio.h>
 
 int						move_f(t_fractol *f, double x, double y)
 {
@@ -54,7 +53,7 @@ int						zoom_f(t_fractol *f, double s)
 		f->y1 += (f->y2 - f->y1) * s;
 		f->x2 -= (f->x2 - f->x1) * s;
 		f->y2 -= (f->y2 - f->y1) * s;
-		f->i_max += 10;
+		f->i_max += (int)s * 90;
 	}
 	else
 	{
@@ -62,7 +61,7 @@ int						zoom_f(t_fractol *f, double s)
 		f->y1 -= (f->y2 - f->y1) * -s;
 		f->x2 += (f->x2 - f->x1) * -s;
 		f->y2 += (f->y2 - f->y1) * -s;
-		f->i_max -= 10;
+		f->i_max -= (int)s * 90;
 	}
 	f->i_max = (f->i_max < 50 ? 50 : f->i_max);
 	return (0);
@@ -88,6 +87,6 @@ t_fractol				*init_f(void *mlx, int sx, int sy)
 	new->img = mlx_new_image(mlx, sx, sy);
 	new->i_max = 90;
 	new->ecolor = 0;
-	new->icolor = 0;
+	new->draw = 0;
 	return (new);
 }
