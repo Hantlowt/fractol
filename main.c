@@ -6,7 +6,7 @@
 /*   By: alhote <alhote@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 17:15:16 by alhote            #+#    #+#             */
-/*   Updated: 2016/03/24 16:06:46 by alhote           ###   ########.fr       */
+/*   Updated: 2016/03/24 17:55:19 by alhote           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void			error(void)
 {
 	write(1, "usage: ./fractol 1|2|3|4 ", 25);
-	write(1, "(Mandelbrot, Julia, Burningship or bonus)\n", 42);
+	write(1, "(Mandelbrot, Julia, Burningship or Tricorne)\n", 45);
 	exit(0);
 }
 

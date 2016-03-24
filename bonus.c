@@ -6,7 +6,7 @@
 /*   By: alhote <alhote@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/23 18:50:12 by alhote            #+#    #+#             */
-/*   Updated: 2016/03/24 16:11:51 by alhote           ###   ########.fr       */
+/*   Updated: 2016/03/24 17:35:50 by alhote           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,9 @@ static void			draw_pixel_bonus(t_fractol *f)
 	while (f->z_r * f->z_r + f->z_i * f->z_i < 4 && i < f->i_max)
 	{
 		tmp = f->z_r;
-		f->z_r = fabs(f->z_r * f->z_r) - f->z_i * f->z_i + f->c_r;
-		f->z_i = fabs(f->z_i * tmp) + f->c_i * (tmp - 5);
+		f->z_i *= -1;
+		f->z_r = f->z_r * f->z_r - f->z_i * f->z_i + f->c_r;
+		f->z_i = 2 * f->z_i * tmp + f->c_i;
 		++i;
 	}
 	dv = 255 / f->i_max;
