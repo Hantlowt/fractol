@@ -6,12 +6,11 @@
 /*   By: alhote <alhote@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/09 18:53:23 by alhote            #+#    #+#             */
-/*   Updated: 2016/03/21 20:56:07 by alhote           ###   ########.fr       */
+/*   Updated: 2016/03/24 18:10:30 by alhote           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
-#include <stdio.h>
 
 int		rgbtoint(int r, int v, int b)
 {
